@@ -3,7 +3,7 @@ import { GET_USERS, GET_USERS_ASYNC } from "./actionTypes";
 import { takeEvery, call, put } from "redux-saga/effects";
 
 function* getUsers() {
-  const url = "https://jsonplaceholder.typicode.com/users";
+  const url = "http://localhost:4000/users";
   const result = yield call(getApiCall, url);
   yield put({
     type: GET_USERS_ASYNC,
