@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { deleteUser, getUsers } from "../redux/components/User/actions";
 import { useDispatch, useSelector } from "react-redux";
 import TableContainer from "@mui/material/TableContainer";
@@ -9,23 +9,43 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router";
+import CustomDialog from "./CustomDialog";
 
 const User = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [dialogTitle, setDialogTitle] = useState("");
 
   const usersData = useSelector((state) => state.userReducer.users);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
   const handleDelete = (id) => {
-    dispatch(deleteUser(id));
+    setDialogTitle("Are you sure you want to delete this user?");
+    setDeleteId(id);
+    setIsOpen(true);
+  };
+  const handleYesClick = () => {
+    dispatch(deleteUser(deleteId));
+    setIsOpen(false);
+  };
+  const handleNoClick = () => {
+    setIsOpen(false);
   };
   const handleUpdate = (data) => {
     navigate("edit-user", { state: data });
   };
   return (
     <Box sx={{ marginTop: "20px" }}>
+      {isOpen && (
+        <CustomDialog
+          handleYesClick={handleYesClick}
+          handleNoClick={handleNoClick}
+          dialogTitle={dialogTitle}
+        />
+      )}
       <TableContainer>
         <Table>
           <TableHead>

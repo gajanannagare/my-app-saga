@@ -10,6 +10,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add-user" element={<AddUser />} />
