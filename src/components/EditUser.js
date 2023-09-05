@@ -3,26 +3,23 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
-import { addUser } from "../redux/components/User/actions";
+import { addUser, updateUser } from "../redux/components/User/actions";
 import { useNavigate } from "react-router";
+import { useLocation } from "react-router-dom";
 
-const AddUser = () => {
+const EditUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [formdata, setFormdata] = useState({
-    name: "",
-    username: "",
-    phone: "",
-    website: "",
+    ...location.state,
   });
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
-  const handleAddUser = () => {
-    let param = { ...formdata };
-    dispatch(addUser(param));
+  const handleEditSubmit = () => {
+    dispatch(updateUser(formdata));
     navigate("/");
   };
   return (
@@ -63,15 +60,15 @@ const AddUser = () => {
       </Box>
       <Box>
         <Button
-          onClick={handleAddUser}
+          onClick={handleEditSubmit}
           variant="contained"
           endIcon={<AddIcon />}
         >
-          Save User
+          Edit User
         </Button>
       </Box>
     </Box>
   );
 };
 
-export default AddUser;
+export default EditUser;
