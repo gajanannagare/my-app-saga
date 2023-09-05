@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
-import { addUser, updateUser } from "../redux/components/User/actions";
+import { updateUser } from "../redux/components/User/actions";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
 

@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/components/User/actions";
 import { useNavigate } from "react-router";

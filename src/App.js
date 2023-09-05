@@ -3,7 +3,6 @@ import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import User from "./components/User";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
