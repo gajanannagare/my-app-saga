@@ -7,23 +7,42 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../redux/components/User/actions";
 import { useNavigate } from "react-router";
 import { useLocation } from "react-router-dom";
+import CustomDialog from "./CustomDialog";
 
 const EditUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
   const [formdata, setFormdata] = useState({
     ...location.state,
   });
+  const [isOpen, isSetOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState("");
   const handleChange = (e) => {
     setFormdata({ ...formdata, [e.target.name]: e.target.value });
   };
   const handleEditSubmit = () => {
+    setDialogTitle("Are you sure you want to update this user?");
+    isSetOpen(true);
+  };
+  const handleYesClick = () => {
     dispatch(updateUser(formdata));
+    isSetOpen(false);
     navigate("/");
+  };
+  const handleNoClick = () => {
+    isSetOpen(false);
   };
   return (
     <Box>
+      {isOpen && (
+        <CustomDialog
+          dialogTitle={dialogTitle}
+          handleYesClick={handleYesClick}
+          handleNoClick={handleNoClick}
+        />
+      )}
       <Box marginTop="20px">
         <Box sx={{ padding: "10px" }}>
           <TextField
